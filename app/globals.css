@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  cursor: none;
+}
+
+@media (max-width: 900px), (hover: none) {
+  * {
+    cursor: auto;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #fcfcfc;
+  color: #3c3f5e;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.font-display {
+  letter-spacing: -0.02em;
+}
+
+.font-mono-label {
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Real gradient text now (was a flat blue masquerading as one) — reserved for hero
+   emphasis spans and headline stat numbers, never body copy or dense text. */
+.text-gradient {
+  background-image: linear-gradient(90deg, #A855F7, #EC4899);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-light-glow {
+  background-color: #FCFCFC;
+  background-image:
+    radial-gradient(circle at 18% 12%, rgba(99, 102, 241, 0.16), transparent 55%),
+    radial-gradient(circle at 85% 28%, rgba(168, 85, 247, 0.16), transparent 52%),
+    radial-gradient(circle at 55% 85%, rgba(236, 72, 153, 0.08), transparent 50%);
+}
+
+/* ---- Glass card utility (additive — opt-in via Card's `glass` prop) ---- */
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(216, 221, 230, 0.8);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.glass-hover {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s;
+}
+.glass-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgba(99, 102, 241, 0.35);
+  box-shadow: 0 24px 60px -20px rgba(99, 102, 241, 0.22);
+}
+
+/* ---- Glow ring — solid-color halo, no gradient ---- */
+.glow-ring {
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.25), 0 0 40px -10px rgba(99, 102, 241, 0.35);
+}
+
+/* ---- Custom scrollbar ---- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #F3F4F8;
+}
+::-webkit-scrollbar-thumb {
+  background: #C7CEDB;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6366F1;
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.22);
+  color: #3C3F5E;
+}
+
+/* ---- Light floating orbs (hero) — same drifting animation the reference build used, re-tuned to sit at low opacity on a light background instead of glowing on dark ---- */
+@keyframes float-slow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, -30px) scale(1.05); }
+}
+@keyframes float-slower {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-30px, 20px) scale(1.08); }
+}
+@keyframes float-slowest {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(16px, 24px) scale(1.06); }
+}
+.animate-float-slow { animation: float-slow 14s ease-in-out infinite; }
+.animate-float-slower { animation: float-slower 18s ease-in-out infinite; }
+.animate-float-slowest { animation: float-slowest 21s ease-in-out infinite; animation-delay: 2s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-slow, .animate-float-slower { animation: none; }
+}
+
+/* ---- Hero grid texture — faint, single-color, fades toward edges ---- */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 80%);
+}
+
+/* ---- Call-demo waveform + pulse ring ---- */
+@keyframes waveform {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+@keyframes pulseRing {
+  0% { transform: scale(0.8); opacity: 0.6; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* ---- Trust-bar logo marquee ---- */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(0, -2px); }
+  to { opacity: 1; transform: translate(0, 0); }
+}
+
+@keyframes cursorRipple {
+  0% {
+    opacity: 0.35;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.cursor-ripple {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.4), transparent 70%);
+  transform: translate(-50%, -50%);
+  animation: cursorRipple 500ms ease-out forwards;
+}
